@@ -1,11 +1,9 @@
 require 'rake'
 require 'rake/testtask'
-require 'rake/rdoctask'
-require 'rake/gempackagetask'
+require 'rdoc/task'
+require 'rubygems/package_task'
 
 $LOAD_PATH << File.join(File.dirname(__FILE__), 'lib')
-require 'dm-core'
-require 'dm-validations'
 require 'dm-paperclip'
 
 desc 'Default: run unit tests.'
@@ -15,6 +13,7 @@ task :default => [:clean, :test]
 desc 'Test the DM-Paperclip library.'
 Rake::TestTask.new(:test) do |t|
   t.libs << 'dm-paperclip'
+  t.libs << 'test'
   t.pattern = 'test/**/*_test.rb'
   t.verbose = true
 end
@@ -75,7 +74,7 @@ spec = Gem::Specification.new do |s|
   s.requirements << "data_mapper"
 end
  
-Rake::GemPackageTask.new(spec) do |pkg| 
+Gem::PackageTask.new(spec) do |pkg| 
   pkg.need_tar = true 
 end
 

@@ -1,5 +1,4 @@
-require 'test/helper'
-
+require 'test_helper'
 class IOStreamTest < Test::Unit::TestCase
   include IOStream
   context "A file" do

@@ -1,5 +1,4 @@
-require 'test/helper'
-
+require 'test_helper'
 class Dummy
   # This is a dummy class
 end
@@ -44,7 +43,7 @@ class AttachmentTest < Test::Unit::TestCase
         @attachment = @dummy.avatar
       end
 
-      Paperclip::Attachment.default_options.keys.each do |key|
+     Paperclip::Attachment.default_options.keys.each do |key|
         should "be the default_options for #{key}" do
           assert_equal @old_default_options[key], 
                        @attachment.instance_variable_get("@#{key}"),

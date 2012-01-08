@@ -1,4 +1,7 @@
 require 'rubygems'
+require 'bundler/setup'
+
+Bundler.setup(:test)
 require 'test/unit'
 require 'shoulda'
 require 'mocha'
@@ -8,6 +11,7 @@ require 'extlib'
 require 'dm-core'
 require 'dm-validations'
 require 'dm-migrations'
+require 'dm-types'
 begin
   require 'ruby-debug'
 rescue LoadError
@@ -57,9 +61,10 @@ def rebuild_model options = {}
     include DataMapper::Resource
     include DataMapper::Validate
     include Paperclip::Resource
-    property :id, ::DataMapper::Types::Serial
+    property :id, ::DataMapper::Property::Serial
     property :other, String
     has_attached_file :avatar, options
+	property :type, ::DataMapper::Property::Discriminator
   end
   Dummy.auto_migrate!
 end

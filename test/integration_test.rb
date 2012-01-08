@@ -1,5 +1,5 @@
-require 'test/helper.rb'
-
+require 'test_helper'
+::DataMapper::Logger.new('/tmp/dm-test.log', 'debug')
 class IntegrationTest < Test::Unit::TestCase
   context "Many models at once" do
     setup do
@@ -228,6 +228,7 @@ class IntegrationTest < Test::Unit::TestCase
     should "be able to reload without saving an not have the file disappear" do
       @dummy.avatar = @file
       @dummy.save
+	  debugger
       @dummy.avatar = nil
       assert_nil @dummy.avatar_file_name
       @dummy.reload

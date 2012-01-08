@@ -1,5 +1,4 @@
-require 'test/helper.rb'
-
+require 'test_helper'
 class PaperclipTest < Test::Unit::TestCase
   context "A DataMapper model with an 'avatar' attachment" do
     setup do
@@ -21,7 +20,7 @@ class PaperclipTest < Test::Unit::TestCase
         include DataMapper::Resource
         include DataMapper::Validate
         include Paperclip::Resource
-        property :id, DataMapper::Types::Serial
+        property :id, DataMapper::Property::Serial
         property :other, String
         has_attached_file :file
       end
@@ -62,6 +61,7 @@ class PaperclipTest < Test::Unit::TestCase
     context "with a subclass" do
       setup do
         class ::SubDummy < Dummy; end
+		SubDummy.finalize
       end
 
       should "be able to use the attachment from the subclass" do

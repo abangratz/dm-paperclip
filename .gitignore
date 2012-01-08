@@ -2,3 +2,8 @@
 log
 pkg
 tmp
+.bundle/
+public/
+vendor/
+tags
+.*.swp

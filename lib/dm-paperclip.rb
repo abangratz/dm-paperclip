@@ -28,17 +28,22 @@
 require 'erb'
 require 'tempfile'
 
+require 'bundler/setup'
+
+Bundler.setup(:default)
+
+
 require 'extlib'
 require 'dm-core'
 
-require 'dm-paperclip/upfile'
-require 'dm-paperclip/iostream'
-require 'dm-paperclip/geometry'
-require 'dm-paperclip/processor'
-require 'dm-paperclip/thumbnail'
-require 'dm-paperclip/storage'
-require 'dm-paperclip/interpolations'
-require 'dm-paperclip/attachment'
+require_relative 'dm-paperclip/upfile'
+require_relative 'dm-paperclip/iostream'
+require_relative 'dm-paperclip/geometry'
+require_relative 'dm-paperclip/processor'
+require_relative 'dm-paperclip/thumbnail'
+require_relative 'dm-paperclip/storage'
+require_relative 'dm-paperclip/interpolations'
+require_relative 'dm-paperclip/attachment'
 
 # The base module that gets included in ActiveRecord::Base. See the
 # documentation for Paperclip::ClassMethods for more useful information.
@@ -179,7 +184,7 @@ module Paperclip
       processor
     end
 
-    # Log a paperclip-specific line. Uses ActiveRecord::Base.logger
+    # Log a paperclip-specific line. Uses Datamapper.logger
     # by default. Set Paperclip.options[:log] to false to turn off.
     def log message
       logger.info("[paperclip] #{message}") if logging?
@@ -327,7 +332,7 @@ module Paperclip
       end
 
       if Paperclip.config.use_dm_validations
-        add_validator_to_context(opts_from_validator_args([name]), [name], Paperclip::Validate::CopyAttachmentErrors)
+        validators.add(Paperclip::Validate::CopyAttachmentErrors, name) 
       end
 
     end
